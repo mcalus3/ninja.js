@@ -4,7 +4,7 @@ import Pagination from "./Pagination";
 import Row from "./Row";
 import Search from "./Search";
 
-export const DataTable = ({ rows, rowsPerPage = 40 }) => {
+export const DataTable = ({ rows, rowsPerPage = 40, locale }) => {
   const calculateTotalNumberOfPages = (rows) => {
     if (rowsPerPage === 0) return 0;
     return Math.ceil(rows.length / rowsPerPage);
@@ -49,7 +49,7 @@ export const DataTable = ({ rows, rowsPerPage = 40 }) => {
 
   return (
     <div>
-      <Search onSearch={search} />
+      <Search onSearch={search} locale={locale} />
       <table>
         <tbody>{rowsToRender}</tbody>
       </table>

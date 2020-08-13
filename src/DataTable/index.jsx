@@ -34,18 +34,10 @@ export const DataTable = ({ rows, rowsPerPage = 40, locale }) => {
     setTotalNumberOfPages(calculateTotalNumberOfPages(rowsFound));
   };
 
-  const changeToPageNumber = (pageNumber) => {
-    setCurrentPageNumber(pageNumber);
-  };
-
-  const rowsInPageNumber = (pageNumber) => {
-    const startIndex = pageNumber * rowsPerPage;
-    return [startIndex, startIndex + rowsPerPage];
-  };
-
+  const startIndex = currentPageNumber * rowsPerPage;
   const rowsToRender = currentRows
     .map((row) => <Row key={row.per_id} row={row} />)
-    .slice(...rowsInPageNumber(currentPageNumber));
+    .slice(startIndex, startIndex + rowsPerPage);
 
   return (
     <div>
@@ -56,7 +48,9 @@ export const DataTable = ({ rows, rowsPerPage = 40, locale }) => {
       <Pagination
         currentPageNumber={currentPageNumber}
         totalNumberOfPages={totalNumberOfPages}
-        onChange={changeToPageNumber}
+        onChange={(pageNumber) => {
+          setCurrentPageNumber(pageNumber);
+        }}
       />
     </div>
   );
